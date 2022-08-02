@@ -10,11 +10,7 @@ import axios from "axios";
 
 export default {
   name: "PokemonDex",
-  props: {
-    num: Number,
-    name: String,
-    url: String,
-  },
+
   data() {
     return {
       pokemonImg: "",
@@ -23,17 +19,25 @@ export default {
       },
     };
   },
-
-  namePokemon() {
-    let newName = this.name[0].toUpperCase() + this.name.slice(1);
-    return newName;
+  props: {
+    num: Number,
+    name: String,
+    url: String,
   },
+  computed: {
+    namePokemon: function () {
+      let newName = this.name[0].toUpperCase() + this.name.slice(1);
+      return newName;
+    },
+  },
+
   created() {
     axios
       .get(this.url)
       .then((res) => {
         this.pokemon.front = res.data.sprites.front_default;
         this.pokemonImg = this.pokemon.front;
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
