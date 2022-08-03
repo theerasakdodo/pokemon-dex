@@ -1,7 +1,15 @@
 <template>
-  <b-card>
-    <h1>{{ namePokemon }}</h1>
-    <img :src="pokemonImg" alt="" />
+  <b-card style="max-width: 20rem">
+    <b-row col="3">
+      <router-link
+        :to="{
+          name: 'PokemonDetail',
+          params: { name: this.name, datapoke: this.pokemonData },
+        }"
+      >
+        <h1>{{ namePokemon }}</h1>
+        <img :src="pokemonImg" alt="" /></router-link
+    ></b-row>
   </b-card>
 </template>
 
@@ -13,6 +21,7 @@ export default {
 
   data() {
     return {
+      pokemonData: {},
       pokemonImg: "",
       pokemon: {
         front: "",
@@ -37,7 +46,9 @@ export default {
       .then((res) => {
         this.pokemon.front = res.data.sprites.front_default;
         this.pokemonImg = this.pokemon.front;
-        console.log(res);
+        this.pokemonData = res.data;
+
+        // console.log(this.pokemonData);
       })
       .catch((err) => {
         console.log(err);

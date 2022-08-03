@@ -1,10 +1,10 @@
 <template>
-  <div class="pokemon">
+  <div class="pokemon container">
     <h1>PoKeDex</h1>
-    <b-card>
+    <b-row cols="3">
       <div v-for="(poke, index) in pokemonAPI" :key="poke">
         <PokemonDex :num="index + 1" :name="poke.name" :url="poke.url" /></div
-    ></b-card>
+    ></b-row>
   </div>
 </template>
 
