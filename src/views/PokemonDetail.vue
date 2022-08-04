@@ -1,38 +1,44 @@
 <template>
-  <div>
-    <h1>{{ namePokemon }}</h1>
-    <img :src="pokemon.front" alt="" />
-    <router-link to="/">
-      <b-button>Home</b-button>
-    </router-link>
-  </div>
+  <b-container>
+    <div class="bg-bl">
+      <img :src="pokemon.front" alt="Pokemon" />
+      <h3>{{ name }}</h3>
+    </div>
+  </b-container>
 </template>
+
 <script>
+import axios from "axios";
+
 export default {
   name: "PokemonDetail",
-
   data() {
     return {
-      datapoke: {},
-
-      pokemon: {
-        front: "",
-        name: "",
-      },
+      data: {},
+      pokemon: {},
     };
   },
-  created() {
-    this.datapoke = this.$route.params.datapoke;
-    this.pokemon.front = this.datapoke.sprites.front_default;
-    this.pokemon.name = this.datapoke.name;
-    console.log(this.pokemon.name);
-  },
-  computed: {
-    namePokemon: function () {
-      let newName =
-        this.pokemon.name[0].toUpperCase() + this.pokemon.name.slice(1);
-      return newName;
-    },
+  created: function () {
+    this.data1 = this.$route.params;
+
+    this.name = this.data1.name;
+
+    axios
+      .get(this.data1.data)
+      .then((res) => {
+        this.pokemon1 = res.data;
+        this.pokemon.front = this.pokemon1.sprites.front_default;
+        console.log(this.pokemon.front);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>
+
+<style scoped>
+.bg-bl {
+  color: #000;
+}
+</style>

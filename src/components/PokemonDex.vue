@@ -4,11 +4,11 @@
       <router-link
         :to="{
           name: 'PokemonDetail',
-          params: { name: this.name, datapoke: this.pokemonData },
+          params: { name: this.name, data: this.url },
         }"
       >
         <h1>{{ namePokemon }}</h1>
-        <img :src="pokemonImg" alt="" /></router-link
+        <img :src="pokemon.front" alt="" /></router-link
     ></b-row>
   </b-card>
 </template>
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       pokemonData: {},
-      pokemonImg: "",
+
       pokemon: {
         front: "",
       },
@@ -44,9 +44,8 @@ export default {
     axios
       .get(this.url)
       .then((res) => {
+        this.pokemon = res.data;
         this.pokemon.front = res.data.sprites.front_default;
-        this.pokemonImg = this.pokemon.front;
-        this.pokemonData = res.data;
 
         // console.log(this.pokemonData);
       })
