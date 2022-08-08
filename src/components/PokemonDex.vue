@@ -1,15 +1,23 @@
 <template>
-  <b-card style="max-width: 20rem">
-    <b-row col="3">
-      <router-link
-        :to="{
-          name: 'PokemonDetail',
-          params: { name: this.name, data: this.url },
-        }"
-      >
-        <h1>{{ namePokemon }}</h1>
-        <img :src="pokemon.front" alt="" /></router-link
-    ></b-row>
+  <b-card class="mb-4 card-test">
+    <!-- <div class="top-card"></div> -->
+    <h1>{{ namePokemon.toUpperCase() }}</h1>
+    <img
+      :src="imgPokemon"
+      alt=""
+      @mouseenter="setImg"
+      @mouseleave="setImg"
+      class="cursor"
+    />
+
+    <!-- <img :src="pokemon.back" alt="" /> -->
+    <router-link
+      :to="{
+        name: 'PokemonDetail',
+        params: { name: this.name, data: this.url },
+      }"
+      ><b-button class="bt-max">Detail</b-button></router-link
+    >
   </b-card>
 </template>
 
@@ -21,6 +29,8 @@ export default {
 
   data() {
     return {
+      isFront: true,
+      imgPokemon: "",
       pokemonData: {},
 
       pokemon: {
@@ -39,14 +49,25 @@ export default {
       return newName;
     },
   },
-
+  methods: {
+    setImg: function () {
+      if (this.isFront) {
+        this.isFront = false;
+        this.imgPokemon = this.pokemon.back;
+      } else {
+        this.isFront = true;
+        this.imgPokemon = this.pokemon.front;
+      }
+    },
+  },
   created() {
     axios
       .get(this.url)
       .then((res) => {
         this.pokemon = res.data;
         this.pokemon.front = res.data.sprites.front_default;
-
+        this.pokemon.back = res.data.sprites.back_default;
+        this.imgPokemon = this.pokemon.front;
         // console.log(this.pokemonData);
       })
       .catch((err) => {
@@ -55,4 +76,44 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+h1 {
+  color: white;
+  text-align: center;
+  height: 40px;
+  font-size: calc(1rem);
+}
+img {
+  width: 100%;
+  height: auto;
+}
+img:hover {
+  cursor: pointer;
+}
+.top-card {
+  position: absolute;
+}
+.card-test {
+  background-color: #ffffff22;
+  backdrop-filter: blur(30px);
+
+  border: solid #222222;
+}
+.card-test:hover {
+  box-shadow: 0px 0px 10px 10px #b6b6b638;
+  border: solid #000000;
+  background-color: #000000;
+}
+.bt-max {
+  width: -webkit-fill-available;
+  transition: 0.3s ease-in-out 0s;
+  background-color: #6c757d;
+}
+.bt-max:hover {
+  background-color: #ffc107;
+  color: black;
+  backdrop-filter: blur(30px);
+  box-shadow: 0px 0px 1px 1px #ffffff38;
+  transform: scale(1.02);
+}
+</style>

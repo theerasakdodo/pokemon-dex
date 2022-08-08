@@ -4,7 +4,7 @@
 
 <style>
 #app {
-  font-family: sans-serif, Helvetica, Arial, sans-serif;
+  font-family: stoner, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
