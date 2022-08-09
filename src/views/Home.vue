@@ -15,3 +15,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.home {
+  background-color: black;
+  height: 100vh;
+}
+</style>

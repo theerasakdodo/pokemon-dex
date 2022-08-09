@@ -94,13 +94,14 @@ img:hover {
   position: absolute;
 }
 .card-test {
-  background-color: #ffffff22;
+  background-color: #0027ff36;
+  -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
-
-  border: solid #222222;
+  border: solid rgb(13 110 253);
+  box-shadow: inset 0px 0px 6px #86b7fe;
 }
 .card-test:hover {
-  box-shadow: 0px 0px 10px 10px #b6b6b638;
+  box-shadow: none;
   border: solid #000000;
   background-color: #000000;
 }
@@ -110,10 +111,18 @@ img:hover {
   background-color: #6c757d;
 }
 .bt-max:hover {
-  background-color: #ffc107;
-  color: black;
+  background-color: red;
+  color: white;
   backdrop-filter: blur(30px);
   box-shadow: 0px 0px 1px 1px #ffffff38;
   transform: scale(1.02);
+}
+@media only screen and (max-width: 375px) {
+  h1 {
+    font-size: 12px;
+  }
+  .bt-max {
+    font-size: 12px;
+  }
 }
 </style>

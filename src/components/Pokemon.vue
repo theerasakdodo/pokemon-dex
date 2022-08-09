@@ -3,7 +3,7 @@
     <h1>PoKeDex</h1>
 
     <div class="container">
-      <form @submit.prevent="searchPokemons">
+      <form @submit.prevent="searchPokemons" class="search-bar">
         <b-form-input
           type="search"
           required
@@ -12,7 +12,7 @@
           @keydown="searchPokemons"
         />
       </form>
-      <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="4">
+      <b-row cols="2" cols-sm="2" cols-md="4" cols-lg="5">
         <div v-for="(poke, index) in pokemonAPI" :key="poke">
           <PokemonDex :num="index + 1" :name="poke.name" :url="poke.url" /></div
       ></b-row>
@@ -51,7 +51,7 @@ export default {
   methods: {
     searchPokemons: function () {
       this.pokemonAPI = this.pokemonSearch;
-      if (this.search == "") {
+      if ((this.search == "") | (this.search == "")) {
         this.pokemonAPI = this.pokemonSearch;
       } else {
         this.pokemonAPI = this.pokemonSearch.filter((pokemon) =>
@@ -68,15 +68,22 @@ export default {
 h1 {
   text-align: center;
   padding: 20px 0px;
-  color: white;
+  color: rgb(255, 0, 0);
+}
+.row {
+  margin-top: 20px;
+}
+.search-bar {
+  margin: 0 auto;
+  width: 48%;
 }
 .pokemon {
-  /* background-color: #000000f2; */
-  background: linear-gradient(
-    80deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(1, 1, 9, 1) 35%,
-    rgb(0 85 103) 100%
-  );
+  background-color: black;
+}
+@media only screen and (max-width: 375px) {
+  .search-bar {
+    margin: 0 auto;
+    width: 100%;
+  }
 }
 </style>
